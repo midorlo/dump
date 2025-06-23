@@ -1,0 +1,20 @@
+{
+  "name": "dump",
+  "version": "1.0.0",
+  "description": "CLI utility to dump text files",
+  "main": "dump.js",
+  "scripts": {
+    "test": "node test/dump.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "ignore": "^7.0.5",
+    "istextorbinary": "^9.5.0"
+  },
+  "bin": {
+    "dump": "./dump.js"
+  }
+}
