@@ -1,5 +1,8 @@
 # Dump
 
+[![Dependabot Updates](https://github.com/midorlo/dump/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/midorlo/dump/actions/workflows/dependabot/dependabot-updates)
+[![Node.js CI](https://github.com/midorlo/dump/actions/workflows/ci.yml/badge.svg)](https://github.com/midorlo/dump/actions/workflows/ci.yml)
+
 A CLI utility to recursively dump the contents of text files, respecting `.gitignore` patterns.
 
 It's like `cat` but for directories, with built-in support for filtering based on gitignore rules, and additional include/exclude patterns.
