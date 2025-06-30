@@ -1,18 +1,36 @@
 {
   "name": "dump",
   "version": "1.0.0",
-  "description": "CLI utility to dump text files",
+  "description": "A CLI utility to recursively dump the contents of text files, respecting .gitignore patterns.",
   "main": "dump.js",
   "scripts": {
     "test": "node test/dump.test.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "cli",
+    "dump",
+    "cat",
+    "recursive",
+    "console",
+    "terminal",
+    "gitignore"
+  ],
+  "author": "midorlo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/midorlo/dump.git"
+  },
+  "bugs": {
+    "url": "https://github.com/midorlo/dump/issues"
+  },
+  "homepage": "https://github.com/midorlo/dump#readme",
   "type": "commonjs",
   "dependencies": {
+    "glob": "^11.0.3",
     "ignore": "^7.0.5",
-    "istextorbinary": "^9.5.0"
+    "istextorbinary": "^9.5.0",
+    "micromatch": "^4.0.7"
   },
   "bin": {
     "dump": "./dump.js"

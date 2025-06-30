@@ -4,8 +4,8 @@ const os = require('os');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-function runDump(target) {
-  const result = spawnSync('node', [path.resolve(__dirname, '..', 'dump.js'), target], {
+function runDump(target, flags = []) {
+  const result = spawnSync('node', [path.resolve(__dirname, '..', 'dump.js'), ...flags, target], {
     encoding: 'utf8'
   });
   if (result.error) {
@@ -40,8 +40,8 @@ fs.writeFileSync(path.join(subDir, 'skip.txt'), 'ignore me');
 const includedFile = path.join(subDir, 'keep.txt');
 fs.writeFileSync(includedFile, 'keep');
 
+// Test without flags
 const output = runDump(tempDir).split(/\r?\n/).filter(Boolean);
-
 assert(output.includes(textFile), 'should print text file path');
 assert(output.includes('Hello'), 'should print text file content');
 assert(!output.includes(skipFile), 'should ignore files matching *.skip');
@@ -53,5 +53,16 @@ assert(!output.includes(ignoredLog), 'should ignore complex pattern');
 assert(output.includes(keepLog), 'should include non-ignored deep file');
 assert(output.includes(includedFile), 'should include non-ignored file');
 
-console.log('All tests passed.');
+// Test with --include-pattern
+const includeOutput = runDump(tempDir, ['-i', '**/*.txt']).split(/\r?\n/).filter(Boolean);
+assert(includeOutput.includes(textFile), 'include: should print text file path');
+assert(includeOutput.includes('Hello'), 'include: should print text file content');
+assert(includeOutput.includes(keepLog), 'include: should include deep .txt file');
+assert(includeOutput.includes(includedFile), 'include: should include nested .txt file');
+assert(!includeOutput.includes(skipFile), 'include: should not include .skip file');
+assert(!includeOutput.includes(binaryFile), 'include: should not include .bin file');
+assert(!includeOutput.includes(ignoredLog), 'include: should not include .log file');
+assert(!includeOutput.some(line => line.includes('ignore me')), 'include: should still respect .gitignore');
 
+
+console.log('All tests passed.');
